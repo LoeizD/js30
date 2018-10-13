@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>JS30 Drum Kit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    body, html {
+        background-image: url("bg-02.jpg");
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+    }
+    .keys {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .key {
+        background-color: black;
+        border-radius: 5px;
+        opacity: 0.9;
+        color: white;
+        margin: 20px;
+        padding: 20px;
+        border: 1px white solid;
+        transition: all 0.07s;
+    }
+    .key:hover {
+        border-color: orangered;
+    }
+    .playing {
+        transform: scale(1.15);
+        border-color: orangered;
+        box-shadow: 0 0 10px orangered;
+    }
+
+    kbd {
+        text-align: center;
+        display: block;
+        font-size: 30px;
+    }
+    span {
+        color: red;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+</style>
+<body>
+    <div class="keys">
+        <div class="key" data-key="65">
+            <kbd>A</kbd>
+            <span>WOOD 01</span>
+        </div>
+        <div class="key" data-key="83">
+            <kbd>S</kbd>
+            <span>JAPAN</span>
+        </div>
+        <div class="key" data-key="68">
+            <kbd>D</kbd>
+            <span>NOISE</span>
+        </div>
+        <div class="key" data-key="70">
+            <kbd>F</kbd>
+            <span>WOOD 02</span>
+        </div>
+        <div class="key" data-key="71">
+            <kbd>G</kbd>
+            <span>INDIA</span>
+        </div>
+        <div class="key" data-key="72">
+            <kbd>H</kbd>
+            <span>BROKEN</span>
+        </div>
+        <div class="key" data-key="74">
+            <kbd>J</kbd>
+            <span>DRUM</span>
+        </div>
+        <div class="key" data-key="75">
+            <kbd>K</kbd>
+            <span>WOOD 03</span>
+        </div>
+        <div class="key" data-key="76">
+            <kbd>L</kbd>
+            <span>WOOD 04</span>
+        </div>
+    </div>
+
+    <audio data-key="65" src="sounds/001.wav"></audio>
+    <audio data-key="83" src="sounds/002.wav"></audio>
+    <audio data-key="68" src="sounds/003.wav"></audio>
+    <audio data-key="70" src="sounds/004.wav"></audio>
+    <audio data-key="71" src="sounds/005.wav"></audio>
+    <audio data-key="72" src="sounds/006.wav"></audio>
+    <audio data-key="74" src="sounds/007.wav"></audio>
+    <audio data-key="75" src="sounds/008.wav"></audio>
+    <audio data-key="76" src="sounds/009.wav"></audio>
+
+<script>
+    window.addEventListener('keydown', playSound);
+
+    function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        if (!audio) return; // stop function if no audio
+        audio.currentTime = 0;
+        audio.play();
+        key.classList.add('playing');
+    }
+
+    const keys = document.querySelectorAll(".key");
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+    function removeTransition(e) {
+        if (e.propertyName !== 'transform') return; // skip if it's not transform
+        this.classList.remove('playing');
+    }
+
+    const divs = document.querySelectorAll(".key");
+    divs.forEach(div => div.addEventListener('click', buttonSound));
+
+    /*
+    const buttonsSound = document.getElementsByClassName('key');
+    
+    console.log(buttonsSound.length + " glonchard");
+    
+    for (let index = 0; index < buttonsSound.length; index++) {
+        const element = buttonsSound[index];
+        element.addEventListener('click', buttonSound);
+    }
+    */
+    function buttonSound (e) {
+        //console.log();
+        //e.path.forEach(a => console.log(a.classList == "key"));
+
+        const div = e.path.filter(a => a.classList == "key")[0].getAttribute("data-key");
+        
+        console.log(div);
+        
+        const audio = document.querySelector(`audio[data-key="${div}"]`);
+        const key = document.querySelector(`.key[data-key="${div}"]`);
+        if (!audio) return; // stop function if no audio
+        audio.currentTime = 0;
+        audio.play();
+        key.classList.add('playing');
+    }
+    
+</script>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Clock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<style>
+html, body {
+    height: 100%;
+    margin: 0px;
+}
+.tick {
+    animation-name: tick-anim;
+    animation-duration: 0.5s;
+}
+@keyframes tick-anim {
+    0% {
+
+        filter: brightness(1.1) blur(4px);
+    }
+    100% {
+        filter: brightness(1) blur(8px);
+    }
+} 
+.bg-item {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    background-size: cover;
+    background-color: green;
+    left: -8px;
+    top: -8px;
+    bottom:-8px;
+    position: fixed;
+    right: -8px;
+    margin: -8px;
+}
+.clock {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+.clock-face {
+    height: 400px;
+    width: 400px;
+    border: 10px white solid;
+    border-radius: 50%;
+    position: relative;
+}
+.clock-face2 {
+    height: 350px;
+    width: 350px;
+    position: relative;
+    background-color: coral;
+    border: 25px dotted;
+    border-radius: 50%;
+}
+.hand {
+    background-color: black;
+    width: 50%;
+    height: 6px;
+    position: absolute;
+    top: 197px; /* (400px / 2) - (height / 2)  */
+    transform-origin: 100%;
+    transform: rotate(90deg);
+    transition: all 0.07s ;
+    transition-timing-function: cubic-bezier(0.05, 2.65, 0.58, 1);
+    border-radius: 2px;
+}
+</style>
+
+<body>
+    <div class="bg-item">
+        <img src="bg.jpg" width="100%" height="100%">
+    </div>
+    <div class="clock">
+        <div class="clock-face">
+            <!--<div class="clock-face2">-->
+                <div class="hand hour-hand"></div>
+                <div class="hand minute-hand"></div>
+                <div class="hand second-hand"></div>
+            
+        </div>
+    </div>
+
+</body>
+<script>
+    "use strict";
+
+    const secondHand = document.querySelector('.second-hand');
+    const minuteHand = document.querySelector('.minute-hand');
+    const hourHand = document.querySelector('.hour-hand');
+
+    const bgitem = document.querySelector('.bg-item');
+
+    function setDate() {
+        const now = new Date();
+        const seconds = now.getSeconds();
+        const minutes = now.getMinutes();
+        const hours = now.getHours();
+        
+        const secondsDegrees = seconds/60 * 360 + 90;
+        const minutesDegrees = minutes/60 * 360 + 90;
+        const hoursDegrees = hours/12 * 360 + 90;
+
+        secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+        minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
+        hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+
+        bgitem.classList.remove('tick');
+        void bgitem.offsetWidth;
+        //bgitem.offsetWidth = bgitem.offsetWidth;
+        bgitem.classList.add('tick');
+    }
+
+    setInterval(setDate, 1000);
+</script>
+
+</html>

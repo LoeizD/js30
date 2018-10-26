@@ -200,6 +200,7 @@
         tempImg.onload = function () {
             if (gate) {
                 gate = false;
+                index++;
                 tryLoadImage(index);
             }
             else {

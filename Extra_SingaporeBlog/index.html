@@ -207,8 +207,8 @@
             img.src = tempImg.src;
             blogElem.appendChild(img);
             let description = document.createElement('p');
-            description.innerHTML = titles[index];
-            blogElem.appendChild(index + " – " + description);
+            description.innerHTML = index + " – " +  titles[index];
+            blogElem.appendChild(description);
             tryLoadImage(index++);
         }
         tryLoadImage(index);

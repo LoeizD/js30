@@ -207,11 +207,12 @@
             img.src = tempImg.src;
             blogElem.appendChild(img);
             let description = document.createElement('p');
-            description.innerHTML = index + " – " +  titles[index];
+            description.innerHTML = index + " – " +  titles[index-1];
             blogElem.appendChild(description);
             tryLoadImage(index++);
         }
-        tryLoadImage(index);
+        setTimeout(tryLoadImage(index), 2000);
+        
     }    
 </script>
 

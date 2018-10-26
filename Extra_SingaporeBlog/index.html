@@ -197,14 +197,9 @@
         let index = 0;
         let tempImg = new Image();
         tempImg.onload = function () {
-            if (index == 0) {
-                index++;
-                console.log("got in");
-                tryLoadImage(index);
-            }
             appendImage();
         }
-        let tryLoadImage = function (index) {
+        let tryLoadImage = function (index++) {
             tempImg.src = 'img/' + index + '.jpg';
         }
         let appendImage = function () {
@@ -215,7 +210,7 @@
             let description = document.createElement('p');
             description.innerHTML = titles[index];
             blogElem.prependChild(description);
-            tryLoadImage(index++)
+            tryLoadImage(index)
         }
         tryLoadImage(index);
     }    

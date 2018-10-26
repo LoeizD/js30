@@ -196,16 +196,9 @@
     function drawImagesAndText() {
         var index = 1;
         var tempImg = new Image();
-        var gate = true;
+        
         tempImg.onload = function () {
-            if (gate) {
-                gate = false;
-                index++;
-                tryLoadImage(index);
-            }
-            else {
-                appendImage();
-            }
+            appendImage();
         }
         let tryLoadImage = function (index) {
             tempImg.src = 'img/' + index + '.jpg';
@@ -213,6 +206,10 @@
         let appendImage = function () {
             let img = document.createElement('img');
             img.src = tempImg.src;
+            if (tempImg.src.endsWith(index + '.jpg')) {
+                tryLoadImage(index);
+                break;
+            }
             blogElem.appendChild(img);
             let description = document.createElement('p');
             description.innerHTML = index + " – " +  titles[index-1];

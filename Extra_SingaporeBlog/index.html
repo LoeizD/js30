@@ -199,7 +199,8 @@
         tempImg.onload = function () {
             appendImage();
         }
-        let tryLoadImage = function (index++) {
+        let tryLoadImage = function (index) {
+            index++;
             tempImg.src = 'img/' + index + '.jpg';
         }
         let appendImage = function () {

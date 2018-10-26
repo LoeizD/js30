@@ -57,10 +57,26 @@
     }
 </style>
 
+<style>
+    #blog {
+        display: flex;
+        align-content: center;
+    }
+    img {
+        display: block;
+        width: 50%;
+        margin: 20px;
+    }
+    p {
+        display: block;
+        margin-bottom: 30px;
+    }
+</style>
+
 <body>
     <h1>Singapore Blog</h1>
     <h3>by <a href="https://corentin.xyz">Corentin Derbré</a></h3>
-    <p>Drop Area</p>
+    <!--<p>Drop Area</p>
     <div id="drop-area">
         <form class="my-form">
             <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
@@ -68,74 +84,74 @@
             <label class="button" for="fileElem">Select some files</label>
         </form>
     </div>
-    <p>Blog</p>
-    <div class="masonry">
-	 
-	
+    <p>Blog</>-->
+    <div id="blog">
+
     </div>
+
 </body>
 <script>
-// https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+    // https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
-let dropArea = document.getElementById('drop-area');
+    let dropArea = document.getElementById('drop-area');
 
-// Prevent defaults
+    // Prevent defaults
 
-;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    dropArea.addEventListener(eventName, preventDefaults, false)
-})
+    ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)
+    })
 
-function preventDefaults (e) {
-  e.preventDefault()
-  e.stopPropagation()
-}
+    function preventDefaults(e) {
+        e.preventDefault()
+        e.stopPropagation()
+    }
 
-// Drag Feedback
+    // Drag Feedback
 
-;['dragenter', 'dragover'].forEach(eventName => {
-  dropArea.addEventListener(eventName, highlight, false)
-})
+    ;['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false)
+    })
 
-;['dragleave', 'drop'].forEach(eventName => {
-  dropArea.addEventListener(eventName, unhighlight, false)
-})
+        ;['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false)
+        })
 
-function highlight(e) {
-  dropArea.classList.add('highlight')
-}
+    function highlight(e) {
+        dropArea.classList.add('highlight')
+    }
 
-function unhighlight(e) {
-  dropArea.classList.remove('highlight')
-}
+    function unhighlight(e) {
+        dropArea.classList.remove('highlight')
+    }
 
-// Handle Drop
+    // Handle Drop
 
-dropArea.addEventListener('drop', handleDrop, false)
+    dropArea.addEventListener('drop', handleDrop, false)
 
-function handleDrop(e) {
-  let dt = e.dataTransfer
-  let files = dt.files
+    function handleDrop(e) {
+        let dt = e.dataTransfer
+        let files = dt.files
 
-  handleFiles(files)
-}
+        handleFiles(files)
+    }
 
-function handleFiles(files) {
-  ([...files]).forEach(uploadFile)
-}
+    function handleFiles(files) {
+        ([...files]).forEach(uploadFile)
+    }
 
-function uploadFile(file) {
-  let url = 'http://78.214.84.73/Extra_SingaporeBlog/img/'
-  let formData = new FormData()
+    function uploadFile(file) {
+        let url = 'http://78.214.84.73/Extra_SingaporeBlog/img/'
+        let formData = new FormData()
 
-  formData.append('file', file)
+        formData.append('file', file)
 
-  fetch(url, {
-    method: 'POST',
-    body: formData
-  })
-  .then(() => { console.log("Success UL")/* Done. Inform the user */ })
-  .catch(() => { alert("Error UL"); /* Error. Inform the user */ })
-}
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(() => { console.log("Success UL")/* Done. Inform the user */ })
+            .catch(() => { alert("Error UL"); /* Error. Inform the user */ })
+    }
 
 
 
@@ -143,10 +159,8 @@ function uploadFile(file) {
 </script>
 
 <script>
-    // Load text
 
     const filePath = 'http://78.214.84.73/Extra_SingaporeBlog/img/img-keys.md';
-    let fileContent = "EMPTY";
 
     function doGET(path, callback) {
         return new Promise(function (resolve, reject) {
@@ -172,37 +186,37 @@ function uploadFile(file) {
     doGET(filePath)
         .then(function (fileData) {
             // Use the file data
-            fileContent = fileData;
-            let descriptions = fileContent.split('/n');
+            let descriptions = fileData.split('/n');
             console.log(fileContent);
+            drawImagesAndText(fileContent);
         })
         .catch(function (xhr) {
             // The call failed, look at `xhr` for details
-            console.log("ERROR 1");
-            
+            console.log("ERROR 1" + xhr);
         });
 
+    blogElem = document.getElementById('blog');
 
-
-
-
-    // Display Images and Text
-
-    let index = 1;
-    let tempImg = new Image();
-    tempImg.onload = function () {
-        appendImage();
-    }
-    let tryLoadImage = function (index) {
-        tempImg.src = 'img/' + index + '.jpg';
-    }
-    let appendImage = function () {
-        let img = document.createElement('img');
-        img.src = tempImg.src;
-        document.body.appendChild(img)
-        tryLoadImage(index++)
-    }
-    tryLoadImage(index);
+    function drawImagesAndText(fileContent) {
+        let index = 1;
+        let tempImg = new Image();
+        tempImg.onload = function () {
+            appendImage();
+        }
+        let tryLoadImage = function (index) {
+            tempImg.src = 'img/' + index + '.jpg';
+        }
+        let appendImage = function () {
+            let img = document.createElement('img');
+            img.src = tempImg.src;
+            blogElem.body.appendChild(img);
+            let description = document.createElement('p');
+            description.innerHTML = fileContent[index];
+            blogElem.body.appendChild(description);
+            tryLoadImage(index++)
+        }
+        tryLoadImage(index);
+    }    
 </script>
 
 </html>

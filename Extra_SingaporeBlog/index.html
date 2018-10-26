@@ -212,10 +212,12 @@
         var tempImg = new Image();
         
         tempImg.onload = function () {
+            console.log("loaded " + tempImg.src);
             appendImage();
         }
         let tryLoadImage = function (index) {
             tempImg.src = 'img/' + index + '.jpg';
+            console.log(tempImg.src);
         }
         let appendImage = function () {
             let img = document.createElement('img');

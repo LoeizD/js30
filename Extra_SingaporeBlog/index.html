@@ -147,25 +147,44 @@ function uploadFile(file) {
 
     const filePath = 'http://78.214.84.73/Extra_SingaporeBlog/img/img-keys.md';
     let fileContent = "EMPTY";
-    let request = new XMLHttpRequest();
-    request.open("GET", filePath, true);
-    request.send(null);
-    request.onreadystatechange = function () {
-        if (request.readyState === 4 && request.status === 200) {
-            let type = request.getResponseHeader('Content-Type');
-            if (type.indexOf("text") !== 1) {
-                fileContent = request.responseText;
-            }
-            else {
-                console.log("didn't pass if 2");
-            }
-        }
-        else {
-            console.log("didn't pass if 1");
-        }
+
+    function doGET(path, callback) {
+        return new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    // The request is done; did it work?
+                    if (xhr.status == 200) {
+                        // Yes, use `xhr.responseText` to resolve the promise
+                        resolve(xhr.responseText);
+                    } else {
+                        // No, reject the promise
+                        reject(xhr);
+                    }
+                }
+            };
+            xhr.open("GET", path);
+            xhr.send();
+        });
     }
-    let descriptions = fileContent.split('/n');
-    console.log(fileContent);
+
+    // Do the request
+    doGET(filePath)
+        .then(function (fileData) {
+            // Use the file data
+            fileContent = fileData;
+            let descriptions = fileContent.split('/n');
+            console.log(fileContent);
+        })
+        .catch(function (xhr) {
+            // The call failed, look at `xhr` for details
+            console.log("ERROR 1");
+            
+        });
+
+
+
+
 
     // Display Images and Text
 

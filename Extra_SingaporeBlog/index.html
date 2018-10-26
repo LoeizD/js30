@@ -69,17 +69,15 @@
         </form>
     </div>
     <p>Blog</p>
-    <div></div>
+    <div class="masonry">
+	 
+	
+    </div>
 </body>
 <script>
-let dropArea = document.getElementById('drop-area');
+// https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
-/*
-dropArea.addEventListener('dragenter', handlerFunction, false)
-dropArea.addEventListener('dragleave', handlerFunction, false)
-dropArea.addEventListener('dragover', handlerFunction, false)
-dropArea.addEventListener('drop', handlerFunction, false)
-*/
+let dropArea = document.getElementById('drop-area');
 
 // Prevent defaults
 
@@ -141,6 +139,24 @@ function uploadFile(file) {
 
 
 
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    // Display Images
+    var folder = "img/";
+
+    $.ajax({
+        url: folder,
+        success: function (data) {
+            $(data).find("a").attr("href", function (i, val) {
+                if (val.match(/\.(jpe?g|png|gif)$/)) {
+                    $(".masonry").append("<div class='brick'><img src='" + folder + val + "'><figcaption>" + val + " </figcaption></div>");
+                }
+            });
+        }
+    });
 
 </script>
 

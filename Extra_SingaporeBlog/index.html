@@ -146,7 +146,7 @@ function uploadFile(file) {
     // Load text
 
     const filePath = 'http://78.214.84.73/Extra_SingaporeBlog/img/img-keys.md';
-    let fileContent = "";
+    let fileContent = "EMPTY";
     let request = new XMLHttpRequest();
     request.open("GET", filePath, true);
     request.send(null);
@@ -156,6 +156,12 @@ function uploadFile(file) {
             if (type.indexOf("text") !== 1) {
                 fileContent = request.responseText;
             }
+            else {
+                console.log("didn't pass if 2");
+            }
+        }
+        else {
+            console.log("didn't pass if 1");
         }
     }
     let descriptions = fileContent.split('/n');

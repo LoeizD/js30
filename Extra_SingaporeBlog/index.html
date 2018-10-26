@@ -196,8 +196,14 @@
     function drawImagesAndText() {
         var index = 1;
         var tempImg = new Image();
+        var gate = true;
         tempImg.onload = function () {
-            appendImage();
+            if (gate) {
+                gate = false;
+            }
+            else {
+                appendImage();
+            }
         }
         let tryLoadImage = function (index) {
             tempImg.src = 'img/' + index + '.jpg';

@@ -142,22 +142,47 @@ function uploadFile(file) {
 
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-    // Display Images
-    var folder = "img/";
+    // Load text
 
-    $.ajax({
-        url: folder,
-        success: function (data) {
-            $(data).find("a").attr("href", function (i, val) {
-                if (val.match(/\.(jpe?g|png|gif)$/)) {
-                    $(".masonry").append("<div class='brick'><img src='" + folder + val + "'><figcaption>" + val + " </figcaption></div>");
-                }
-            });
+    const filePath = 'http://78.214.84.73/Extra_SingaporeBlog/img/img-keys.md';
+    let fileContent = "";
+    let request = new XMLHttpRequest();
+    request.open("GET", filePath, true);
+    request.send(null);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            let type = request.getResponseHeader('Content-Type');
+            if (type.indexOf("text") !== 1) {
+                fileContent = request.responseText;
+            }
         }
-    });
+    }
+    let descriptions = fileContent.split('/n');
+    console.log(descriptions.length);
+    
+ 
 
+
+
+
+    // Display Images and Text
+
+    let index = 1;
+    let tempImg = new Image();
+    tempImg.onload = function () {
+        appendImage();
+    }
+    let tryLoadImage = function (index) {
+        tempImg.src = 'img/' + index + '.jpg';
+    }
+    let appendImage = function () {
+        let img = document.createElement('img');
+        img.src = tempImg.src;
+        document.body.appendChild(img)
+        tryLoadImage(index++)
+    }
+    tryLoadImage(index);
 </script>
 
 </html>

@@ -183,7 +183,7 @@
         .then(function (fileData) {
             // Use the file data
             titles = fileData.split("\n");
-            console.log(titles);
+            //console.log(titles);
             drawImagesAndText();
         })
         .catch(function (xhr) {
@@ -194,8 +194,8 @@
     blogElem = document.getElementById('blog');
 
     function drawImagesAndText() {
-        let index = 1;
-        let tempImg = new Image();
+        var index = 1;
+        var tempImg = new Image();
         tempImg.onload = function () {
             appendImage();
         }
@@ -211,7 +211,7 @@
             blogElem.appendChild(description);
             tryLoadImage(index++);
         }
-        setTimeout(tryLoadImage(index), 10000);
+        tryLoadImage(index);
         
     }    
 </script>

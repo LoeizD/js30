@@ -194,7 +194,7 @@
     blogElem = document.getElementById('blog');
 
     function drawImagesAndText() {
-        let index = 1;
+        let index = 0;
         let tempImg = new Image();
         tempImg.onload = function () {
             appendImage();
@@ -205,11 +205,11 @@
         let appendImage = function () {
             let img = document.createElement('img');
             img.src = tempImg.src;
-            console.log(tempImg.lastModifiedDate);
-            blogElem.appendChild(img);
+            console.log(tempImg.src.lastModifiedDate);
+            blogElem.prependChild(img);
             let description = document.createElement('p');
             description.innerHTML = titles[index];
-            blogElem.appendChild(description);
+            blogElem.prependChild(description);
             tryLoadImage(index++)
         }
         tryLoadImage(index);

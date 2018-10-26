@@ -207,10 +207,10 @@
             let img = document.createElement('img');
             img.src = tempImg.src;
             console.log(tempImg.src.lastModifiedDate);
-            blogElem.prependChild(img);
+            blogElem.appendChild(img);
             let description = document.createElement('p');
             description.innerHTML = titles[index];
-            blogElem.prependChild(description);
+            blogElem.appendChild(description);
             tryLoadImage(index)
         }
         tryLoadImage(index);

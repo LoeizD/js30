@@ -59,19 +59,18 @@
 
 <style>
     #blog {
-        display: flex;
-        margin-left: 25%;
-        margin-right: 25%;
+        margin-left: 30%;
+        margin-right: 30%;
         background-color: cornsilk;
     }
     img {
         display: block;
         width: 100%;
-        margin: 20px;
+        margin-bottom: 20px;
     }
     p {
         display: block;
-        margin-bottom: 30px;
+        margin-bottom: 50px;
     }
 </style>
 
@@ -183,7 +182,7 @@
     doGET(filePath)
         .then(function (fileData) {
             // Use the file data
-            titles = fileData.split('/n');
+            titles = fileData.split("\n");
             console.log(titles);
             drawImagesAndText();
         })
@@ -206,6 +205,7 @@
         let appendImage = function () {
             let img = document.createElement('img');
             img.src = tempImg.src;
+            console.log(tempImg.lastModifiedDate);
             blogElem.appendChild(img);
             let description = document.createElement('p');
             description.innerHTML = titles[index];

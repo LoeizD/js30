@@ -181,8 +181,8 @@
         .then(function (fileData) {
             // Use the file data
             let descriptions = fileData.split('/n');
-            console.log(fileContent);
-            drawImagesAndText(fileContent);
+            console.log(descriptions);
+            drawImagesAndText(descriptions);
         })
         .catch(function (xhr) {
             // The call failed, look at `xhr` for details

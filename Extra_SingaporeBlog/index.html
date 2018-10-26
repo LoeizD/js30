@@ -60,11 +60,13 @@
 <style>
     #blog {
         display: flex;
-        align-content: center;
+        margin-left: 25%;
+        margin-right: 25%;
+        background-color: cornsilk;
     }
     img {
         display: block;
-        width: 50%;
+        width: 100%;
         margin: 20px;
     }
     p {
@@ -155,6 +157,7 @@
 <script>
 
     const filePath = 'http://78.214.84.73/Extra_SingaporeBlog/img/img-keys.md';
+    var titles = [];
 
     function doGET(path, callback) {
         return new Promise(function (resolve, reject) {
@@ -180,9 +183,9 @@
     doGET(filePath)
         .then(function (fileData) {
             // Use the file data
-            let descriptions = fileData.split('/n');
-            console.log(descriptions);
-            drawImagesAndText(descriptions);
+            titles = fileData.split('/n');
+            console.log(titles);
+            drawImagesAndText();
         })
         .catch(function (xhr) {
             // The call failed, look at `xhr` for details
@@ -191,7 +194,7 @@
 
     blogElem = document.getElementById('blog');
 
-    function drawImagesAndText(fileContent) {
+    function drawImagesAndText() {
         let index = 1;
         let tempImg = new Image();
         tempImg.onload = function () {
@@ -205,7 +208,7 @@
             img.src = tempImg.src;
             blogElem.appendChild(img);
             let description = document.createElement('p');
-            description.innerHTML = fileContent[index];
+            description.innerHTML = titles[index];
             blogElem.appendChild(description);
             tryLoadImage(index++)
         }

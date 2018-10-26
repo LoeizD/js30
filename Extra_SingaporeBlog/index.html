@@ -67,10 +67,22 @@
         font-family: 'Diplomata', cursive;
         font-size: 2em;
         color: rgb(233, 50, 64);
+        text-align: center;
+    }
+    h4 {
+        text-align: right;
+        color: #333;
+    }
+    h2 {
+        font-family: monospace;
+        color: #444;
+        font-size: 3em;
     }
     #blog, #titlesg {
-        margin-left: 30%;
-        margin-right: 30%;
+        margin-left: auto;
+        margin-right: auto;
+        min-width: 575px;
+        width: 40%;
     }
     img {
         display: block;
@@ -82,7 +94,7 @@
         margin-bottom: 30px;
         margin-top: 0px;
         font-size: 18px;
-        color: #222;
+        color: #333;
     }
 </style>
 
@@ -98,7 +110,7 @@
     <p>Blog</>-->
     <div id="titlesg">
         <h1>🇸🇬 Singapore Blog 🇸🇬</h1>
-        <p>by <a href="https://corentin.xyz">Corentin Derbré</a></p>
+        <h4>by <a href="https://corentin.xyz">Corentin Derbré</a>, 2018</h4>
     </div>
     <div id="blog"></div>
 
@@ -169,6 +181,12 @@
 
 <script>
 
+    if (!(!!window.chrome && !!window.chrome.webstore)) {
+        let warning = document.createElement('h2');
+        warning.innerHTML = "You are not using Chrome browser. This website is only supported by Chrome. Sorry for the inconvenience.";
+        document.getElementById('blog').appendChild(warning);
+    }
+
     const filePath = 'http://78.214.84.73/Extra_SingaporeBlog/img/img-keys.md';
     var titles = [];
 
@@ -235,7 +253,11 @@
         }
         tryLoadImage(index);
         
-    }    
+    }
+
+    
+
+        
 </script>
 
 </html>

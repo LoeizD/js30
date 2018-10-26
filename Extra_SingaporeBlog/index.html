@@ -197,6 +197,10 @@
         let index = 0;
         let tempImg = new Image();
         tempImg.onload = function () {
+            if (index == 0) {
+                index++;
+                tryLoadImage(index);
+            }
             appendImage();
         }
         let tryLoadImage = function (index) {

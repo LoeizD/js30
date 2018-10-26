@@ -75,14 +75,14 @@
     }
     h2 {
         font-family: monospace;
-        color: #444;
+        color: #555;
         font-size: 3em;
     }
     #blog, #titlesg {
         margin-left: auto;
         margin-right: auto;
-        min-width: 575px;
-        width: 40%;
+        min-width: 500px;
+        width: 50%;
     }
     img {
         display: block;
@@ -183,7 +183,7 @@
 
     if (!(!!window.chrome && !!window.chrome.webstore)) {
         let warning = document.createElement('h2');
-        warning.innerHTML = "You are not using Chrome browser. You will not be able to see all the pictures.";
+        warning.innerHTML = "You are not using Chrome browser. You may not be able to see the 10+ pictures.";
         document.getElementById('blog').appendChild(warning);
     }
 

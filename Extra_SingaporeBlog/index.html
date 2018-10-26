@@ -208,13 +208,14 @@
             img.src = tempImg.src;
             if (tempImg.src.endsWith(index + '.jpg')) {
                 tryLoadImage(index);
-                break;
             }
+            else {
             blogElem.appendChild(img);
             let description = document.createElement('p');
             description.innerHTML = index + " – " +  titles[index-1];
             blogElem.appendChild(description);
             tryLoadImage(index++);
+            }
         }
         tryLoadImage(index);
         

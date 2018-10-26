@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Singapore Blog</title>
+    <title>🇸🇬 Singapore Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <!--<style>
@@ -56,27 +56,35 @@
         display: none;
     }
 </style>-->
+<link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Diplomata" rel="stylesheet">
 
 <style>
+    body, html {
+        font-family: 'Permanent Marker', cursive;
+    }
+    h1 {
+        font-family: 'Diplomata', cursive;
+        font-size: 2em;
+        color: rgb(233, 50, 64);
+    }
     #blog {
         margin-left: 30%;
         margin-right: 30%;
-        background-color: cornsilk;
     }
     img {
         display: block;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     p {
         display: block;
-        margin-bottom: 50px;
+        margin-bottom: 30px;
+        font-size: 18px;
     }
 </style>
 
 <body>
-    <h1>Singapore Blog</h1>
-    <h3>by <a href="https://corentin.xyz">Corentin Derbré</a></h3>
     <!--<p>Drop Area</p>
     <div id="drop-area">
         <form class="my-form">
@@ -86,7 +94,10 @@
         </form>
     </div>
     <p>Blog</>-->
-    <div id="blog"></div>
+    <div id="blog">
+        <h1>🇸🇬 Singapore Blog 🇸🇬</h1>
+        <p>by <a href="https://corentin.xyz">Corentin Derbré</a></p>
+    </div>
 
 </body>
 <!--<script>
@@ -210,10 +221,12 @@
                 tryLoadImage(index);
             }
             else {
-            blogElem.appendChild(img);
+            //blogElem.appendChild(img);
             let description = document.createElement('p');
             description.innerHTML = index + " – " +  titles[index-1];
-            blogElem.appendChild(description);
+            //blogElem.appendChild(description);
+            blogElem.insertBefore(description,blogElem.firstChild);
+            blogElem.insertBefore(img,blogElem.firstChild);
             tryLoadImage(index++);
             }
         }

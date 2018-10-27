@@ -8,3 +8,5 @@ Temple of money spending with nice roof garden.
 Hot nights.
 City Noir.
 Essence of Chicken. I didn't buy that.
+This is on the other side of Sentosa Island, a resort.
+The Chinese Gaden's Pagoda.

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Basic Three.js App</title>
+    <style>
+      html, body { margin: 0; padding: 0; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+        <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+        <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+        
+    <script src="https://fastcdn.org/three.js/73/three.min.js"></script>
+
+    <script src="OrbitControls.js"></script>
+    <script>
+
+        // http://davidscottlyons.com/threejs-intro
+
+    var scene = new THREE.Scene();
+    var aspect = window.innerWidth / window.innerHeight;
+    var camera = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 );
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var material = new THREE.MeshNormalMaterial();
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+    camera.position.z = 5;
+
+    var time = 1;
+
+    //controls = new THREE.OrbitControls( camera );    
+
+    var render = function () {
+        requestAnimationFrame( render );
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        //cube.scale.set(Math.sin( time ))
+        //controls.update();
+        renderer.render( scene, camera );
+    };
+
+    render();
+
+
+
+    </script>
+  </body>
+</html>

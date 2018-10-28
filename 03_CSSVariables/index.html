@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>CSS Variables</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    :root {
+        --base: #a4ffff;
+        --spacing: 10px;
+        --blur: 2px;
+    }
+    html, body {
+        padding: 0;
+        text-align: center;
+        font-family: 'helvetica neue', sans-serif;
+        background-color: rgb(17,25, 29);
+        color: rgb(255, 54, 7);
+    }
+    .hl {
+        color: var(--base);
+    }
+    .image {
+        padding: var(--spacing);
+        background: var(--base);
+        filter: blur(var(--blur));
+        margin: 40px;
+        height: 70vh;
+    }
+</style>
+<body>
+    <h1>Update CSS Variables with <span class="hl">JS</span></h1>
+
+    <div>
+        <label for="spacing">Spacing:</label>
+        <input type="range" name="spacing" min="10" max="50" data-sizing="px" value="10">
+
+        <label for="blur">Blur:</label>
+        <input type="range" name="blur" min="0" max="10" data-sizing="px" value="2">
+
+        <label for="base">Base Color:</label>
+        <input type="color" name="base" value="#a4ffff">
+    </div>
+
+    <img class="image" src="taiwan.jpg" alt="joel-fulgencio-720412-unsplash">
+
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+
+</body>
+<script>
+    const inputs = document.querySelectorAll('input');
+
+    function handleUpdate() {
+        //console.log(this.value);
+        const suffix = this.dataset.sizing || ''; // fallback to '' if no dataset.sizing
+        document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
+</script>
+</html>

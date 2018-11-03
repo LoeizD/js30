@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Search Suggestion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    :root {
+        --color: rgb(208, 219, 223);
+    }
+    html {
+        background-color: dodgerblue;
+        font-family: 'helvetica neue';
+        font-size: 20px;
+    }
+    .search {
+        border: 10px whitesmoke solid;
+        border-radius: 6px;
+        width: 100%;
+        transform: translateX(-30px);
+        font-size: 2em;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+        outline: 0;
+    }
+    .search-form {
+        max-width: 475px;
+        margin: auto;
+        padding-top: 50px;
+    }
+    ul {
+        margin: 0;
+        width: 80%;
+        margin: 0;
+        transform: translateY(-1px);
+        font-weight: 200;
+    }
+    li {
+        display: block;
+        background-color: lightblue;
+        padding: 15px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+    .suggestions li:nth-child(even) {
+        transform: perspective(100px) rotateX(4deg) scale(1.002);
+        background: linear-gradient(var(--color), white);
+    }
+    .suggestions li:nth-child(odd) {
+        transform: perspective(100px) rotateX(-4deg) scale(1.002) translateY(1px);
+        background: linear-gradient(white, var(--color));
+    }
+    .pop {
+        float: right;
+        font-family: monospace;
+        color: rgb(134, 134, 134);
+        font-weight: 50;
+    }
+    .hl {
+        background: rgb(255, 194, 27);
+        text-transform: capitalize;
+    }
+</style>
+
+<body>
+    <form class="search-form">
+        <input type="text" class="search" placeholder="City or State">
+        <ul class="suggestions">
+            <li>Filter for a city</li>
+            <li>or a state</li>
+        </ul>
+    </form>
+
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+</body>
+<script>
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+    const cities = [];
+
+    fetch(endpoint)
+        .then(blob => blob.json())
+        .then(data => cities.push(...data));
+
+    function findMactches(wordToMatch, cities) {
+        return cities.filter(place => {
+            const regex = new RegExp(wordToMatch, 'gi');
+            return place.city.match(regex) || place.state.match(regex);
+        })
+    }
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function displayMatches() {
+        const matchArray = findMactches(this.value, cities);
+        const html = matchArray.map(place => {
+            const regex = new RegExp(this.value, 'gi');
+            const cityName = place.city.replace(regex, `<span class="hl">${this.value.toLowerCase()}</span>`);
+            const stateName = place.state.replace(regex, `<span class="hl">${this.value.toLowerCase()}</span>`);
+
+            return `<li>
+                <span class="name">${cityName}, ${stateName}</span>
+                <span class="pop">${numberWithCommas(place.population)}</span>
+                </li>`
+        }).join("");
+        suggestions.innerHTML = html;
+    }
+
+    const searchInput = document.querySelector('.search');
+    const suggestions = document.querySelector('.suggestions');
+    searchInput.addEventListener('change', displayMatches);
+    searchInput.addEventListener('keyup', displayMatches);
+
+</script>
+
+</html>

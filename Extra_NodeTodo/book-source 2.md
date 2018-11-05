@@ -1,0 +1,1 @@
+If a crocodile steals a child and promises its return if the father can correctly guess exactly what the crocodile will do, how should the crocodile respond in the case that the father guesses that the child will not be returned?

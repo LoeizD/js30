@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Unlock new words!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<link href="https://fonts.googleapis.com/css?family=Crimson+Text|Varela+Round" rel="stylesheet">
+<style>
+    :root {
+        --loc: -1000px,0px;
+    }
+    body, html {
+        font-family: 'Varela Round', sans-serif;
+    }
+    .content {
+        max-width: 900px;
+        margin: auto;
+    }
+    span {
+        
+    }
+    .unlocked {
+        margin-right: 4px;
+    }
+    .buy {
+        background-color: rgb(236, 236, 236);
+        padding: 0px;
+        padding-left: 6px;
+        padding-right: 6px;
+        margin-right: 8px;
+        border: solid 1px rgb(231, 231, 231);
+        border-radius: 3px;
+        transition: all 0.2s;
+        color: rgb(21, 130, 255);
+        text-decoration: none;
+    }
+    .buy:hover {
+        background-color: rgb(250, 250, 250);
+        color: rgb(58, 150, 255);
+        border-color: rgb(250, 250, 250);
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .locked {
+        background-color: rgb(236, 236, 236);
+        margin-right: 10px;
+        height: 23px;
+        border-radius: 3px;
+        transform: translateY(6px);
+    }
+    .new-line {
+        display: block;
+        margin-bottom: 20px;
+    }
+    #book {
+        background-color: rgb(250, 250, 250);
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 10px;
+        padding-bottom: 40px;
+        margin: 20px;
+        font-family: 'Crimson Text', serif;
+    }
+    .info {
+        position: absolute;
+        background-color: rgb(255, 254, 206);
+        padding: 10px;
+        width: 300px;
+        transform: translate(var(--loc));
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+</style>
+<body>
+    <div class="info">
+        A crowdfunded book is a book that is <i>unlocked word by word</i> by the community. It pays directly the author and it's a fun sharing and discovery adventure with your friends, the 21st century way, at the price of a simple coffee.
+    </div>
+    <div class="content">
+    <h1>42 Shades of Gray</h1>
+    <h3>a <mark class="highlight">crowdfunded book</mark> by Arial Black</h3>
+    <p>Unlock the words and read the full story.</p>
+    <p>When you unlock a word, you unlock it for everyone, so anyone can read it. When someone unlocks a word, you get to read it too, how cool is that!</p>
+    <div id="book">
+        <h3>42 Shades of Gray</h3>
+    </div>
+    <p id="stats"></p>
+</div>
+</body>
+<script>
+    function unlockNextWord() {
+        return "word unlocked";
+    }
+    function getUnlockedWords() {
+        return ["Hello,", "this", "is", "the", "story", "of", "an", "extraordinary"];
+    }
+    function getBookLength() {
+        return 320;
+    }
+
+    // populate the book
+        // unlocked words
+        // locked words, with buy the first word
+    const bookDiv = document.querySelector('#book')
+    console.log(bookDiv);
+
+    getUnlockedWords().forEach(word => {
+        const span = document.createElement("span");
+        span.classList.add('unlocked');
+        span.innerHTML = word;
+        bookDiv.appendChild(span);
+    });
+
+    const buy = document.createElement("span");
+    buy.classList.add('buy');
+    buy.innerHTML = 'unlock next word';
+    bookDiv.appendChild(buy);
+ 
+    for (let i = getUnlockedWords().length; i < getBookLength(); i++) {
+        const locked = document.createElement("object");
+        locked.classList.add('locked');
+        locked.setAttribute('width', `${Math.floor(Math.random()*80)+20}px`);
+        if (i == 52 || i % 150 == 0) {
+            locked.classList.add('new-line');
+        }
+        bookDiv.appendChild(locked);
+    }
+
+    // Stats
+    const stats = document.querySelector('#stats')
+    stats.innerHTML = `${getUnlockedWords().length}/${getBookLength()} words unlocked (${Math.floor(getUnlockedWords().length/getBookLength() * 100)}% of the book)`;
+    
+    // Info bar
+    var e = window.event;
+    function displayInfo(event) {
+        // console.log("gros" + event.clientX);
+        document.documentElement.style.setProperty(`--loc`, event.clientX + "px," + event.clientY + "px");
+    }
+
+    const highlight = document.querySelector('.highlight');
+    console.log(highlight);
+    highlight.addEventListener('mouseover', displayInfo);
+    highlight.addEventListener('mouseleave', function() {
+        document.documentElement.style.setProperty(`--loc`, "-1000px,0px");
+    });
+
+    // API fetch test
+    const endpoint = "http://78.214.84.73:1337/api/"
+    var apiData = '';
+    fetch(endpoint, {method: "GET"})
+        .then(blob => console.log(blob))
+        //.then(data => apiData.push(...data))
+        //.then(console.log(apiData))
+
+</script>
+</html>

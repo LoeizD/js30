@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Canvas Fun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<link href="https://fonts.googleapis.com/css?family=Bowlby+One+SC" rel="stylesheet">
+<style>
+    body,
+    html {
+        margin: 0;
+        font-family: 'Bowlby One SC', cursive;
+    }
+
+    h1 {
+        display: inline-block;
+        margin-right: 50px;
+        font-size: 50px;
+        margin-left: 80px;
+    }
+
+    .grad1 {
+        background: red;
+        background: -webkit-linear-gradient(left, red, orange, yellow, green, cyan, blue, violet);
+        background: -o-linear-gradient(right, red, orange, yellow, green, cyan, blue, violet);
+        background: -moz-linear-gradient(right, red, orange, yellow, green, cyan, blue, violet);
+        background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px black;
+    }
+
+    .container {
+        display: inline-block;
+        cursor: pointer;
+        font-size: 20px;
+        user-select: none;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+    }
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: rgb(192, 192, 192);
+    }
+
+    .container:hover input~.checkmark {
+        background-color: rgb(97, 97, 97);
+    }
+
+    .container input:checked~.checkmark {
+        background-color: #2196F3;
+    }
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    .container input:checked~.checkmark:after {
+        display: inline-block;
+    }
+
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    
+</style>
+<body>
+    <h1 class="grad1">Please draw!</h1>
+    <label class="container grad1 check">Special Mode
+            <input type="checkbox">
+            <span class="checkmark"></span>
+    </label>
+
+    <canvas id="draw" width="800" height="800"></canvas>
+    
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+</body>
+<script>
+    const canvas = document.querySelector('#draw');
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+    let hue = 0;
+
+    const checkbox = document.querySelector(".check");
+    checkbox.addEventListener('change', updateCompOperation)
+    function updateCompOperation(e) {
+        console.log(e.target.checked)
+        ctx.globalCompositeOperation = e.target.checked? 'difference': 'source-over';
+    }
+
+    function draw(e) {
+        if (!isDrawing) return; // stop the function
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`
+        ctx.lineWidth = (Math.sin(hue*0.05)*0.5+1)*100;
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+        hue++;
+        // hue = (hue +1)%360 ;
+    }
+    canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    });
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+</script>
+</html>

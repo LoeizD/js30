@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Shift Check</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<link href="https://fonts.googleapis.com/css?family=Gochi+Hand" rel="stylesheet">
+<style>
+    :root {
+        --scolor: rgb(58, 58, 58);
+    }
+    body, html {
+        margin: 0;
+        font-family: 'Gochi Hand', cursive;
+        background-color: gold;
+        color: rgb(58, 58, 58);
+    }
+    h1 {
+        text-align: center;
+        font-size: 40px;
+        text-shadow: 4px 4px 0 rgba(131, 0, 0, 0.2);
+    }
+    p {
+        display: inline;
+    }
+    div {
+        padding: 20px;
+        background-color: white;
+        font-size: 20px;
+        border-radius: 5px;
+        margin: auto;
+        width: 50%;
+        box-shadow: 8px 8px 0px rgba(131, 0, 0, 0.2);
+    }
+    input {
+        margin: 20px;
+        border: solid 10px gray;
+    }
+    #shift {
+        color: var(--scolor);
+    }
+    input:checked + p {
+        text-decoration: line-through;
+    }
+</style>
+<body>
+    <h1>Batch check elements using the <span id="shift">shift</span> key</h1>
+    <div>
+        <input type="checkbox"><p>List things to do</p><br>
+        <input type="checkbox"><p>Read the list of things to do</p><br>
+        <input type="checkbox"><p>Prioritize by importance</p><br>
+        <input type="checkbox"><p>Assign due dates</p><br>
+        <input type="checkbox"><p>Rewrite tasks to be more specific</p><br>
+        <input type="checkbox"><p>Estimate the time it will take</p><br>
+        <input type="checkbox"><p>Prioritize by urgence</p><br>
+        <input type="checkbox"><p>Put the tasks in categories</p><br>
+        <input type="checkbox"><p>Remove useless tasks</p><br>
+        <input type="checkbox"><p>Prepare the work environment</p><br>
+        <input type="checkbox"><p>Do the first task</p><br>
+        <input type="checkbox"><p>Complete all the tasks</p><br>
+    </div>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+    <script>
+        const checklist = [...document.querySelectorAll('input')];
+        // console.log(checklist);
+        let first = undefined;
+        let last = undefined;
+        let canClick = false;
+
+        function handleCheck(e) {
+            // if (!canClick) return;
+            // console.log(e.target);
+            if (first != undefined && last != undefined) {
+                console.warn("2 SELECTED");
+            } else if (first != undefined && canClick) {
+                last = checklist.indexOf(e.target);
+                // sort last & first
+                [last, first] = first<last? [last, first]:[first, last];
+                // for each item, select those who are between first and last
+                checklist.forEach((input, index) => {
+                    if (first <= index && index <= last )
+                    input.setAttribute('checked', true);
+                })
+                // reset
+                first = undefined;
+                last = undefined;
+            } else {
+                first = checklist.indexOf(e.target);
+            }
+            
+            console.log(first + " " + last);
+        }
+
+        // change the event listener from change to check
+        checklist.forEach(item => item.addEventListener('change', handleCheck));
+
+        function keyCheck(e) {
+            if (e.keyCode == 16) {
+                document.documentElement.style.setProperty(`--scolor`, 'white');
+                canClick = true;
+            } 
+        }
+        function keyUncheck(e) {
+            if (e.keyCode == 16) {
+                canClick = false;
+                document.documentElement.style.setProperty(`--scolor`, 'rgb(58, 58, 58)');
+            }
+        }
+
+        window.addEventListener('keydown', keyCheck);
+        window.addEventListener('keyup', keyUncheck);
+
+
+    </script>
+</body>
+</html>

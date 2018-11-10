@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Video Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<link href="https://fonts.googleapis.com/css?family=Saira+Semi+Condensed" rel="stylesheet">
+<style>
+    .html, body {
+        background-color: black;
+        font-family: 'Saira Semi Condensed', sans-serif;
+    }
+    h1 {
+        color: gold;
+        text-align: center;
+    }
+    .progress {
+        height: 20px;
+        background-color: rgb(44, 44, 44);
+    }
+    .progress__filled {
+        background-color: gold;
+        height: 100%;
+        width: 25%;
+    }
+    video {
+        margin: auto;
+        width: 900px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .center {
+        width: 900px;
+        margin: auto;
+    }
+    button {
+        background-color: gold;
+        border: 0;
+        padding: 8px;
+        margin:0;
+        width: 20%;
+    }
+    button:hover {
+        background-color: rgb(197, 168, 0);
+    }
+    input {
+        background-color: gold;
+        width: 19%;
+        margin: 0;
+        padding: 0;
+    }
+    button:focus {outline:0;}
+
+</style>
+<body>
+    <h1>SUPER VIDEO PLAYER</h1>
+    <div class="">
+    <video class="player__video viewer center" src="video.mp4"></video>
+    <div class="player__controls center">
+        <div class="progress">
+            <div class="progress__filled"></div>
+        </div>
+        <button class="player__button toggle" title="Toggle Play">▶</button>
+        <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05" value="1">
+        <input type="range" name="playbackRate" class="player__slider" min="0.5" max="2" step="0.1" value="1">
+        <button data-skip="-5" class="player__button"><< 5s</button>
+        <button data-skip="5" class="player__button">5s >></button>
+    </div>
+    </div>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+</body>
+<script type="text/javascript" src="script.js"></script>
+</html>

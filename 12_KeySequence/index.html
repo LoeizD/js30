@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Key Sequence</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+<style>
+    body, html {
+        margin: 0;
+    }
+    p {
+        color: white;
+        text-align: center;
+        font-size: 100px;
+        margin: 0;
+        padding: 0;
+        font-family: "Comic Sans MS", cursive, sans-serif	
+    }
+    .mainDiv {
+        animation: party 0.5s linear;
+        animation-iteration-count:infinite;
+        min-width: 100vh;
+        min-height: 100vh;
+        background-color: red;
+    }
+    @keyframes party {
+        0%   {background-color: red;}
+        10%  {background-color: orange;}
+        20%  {background-color: yellow;}
+        30% {background-color: rgb(170, 255, 0);}
+        40% {background-color: rgb(0, 255, 0);}
+        50% {background-color: turquoise;}
+        60% {background-color: rgb(0, 110, 255);}
+        70% {background-color: blue;}
+        80% {background-color: rgb(255, 0, 242);}
+        90% {background-color: rgb(255, 0, 128);}
+        100% {background-color: red;}
+    }
+</style>
+<body>
+    <div class="">
+        <p>type "demat"</p>
+    </div>
+    <audio src="music.mp3" loop></audio>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+</body>
+<script>
+    const pressed = []
+    const secretCode = 'demat'
+    const bg = document.querySelector('div')
+    const instruction = document.querySelector('p')
+    const music = document.querySelector('audio')
+    function party() {
+        cornify_add()
+    }
+    window.addEventListener('keyup', e => {
+        console.log(e.key);
+        pressed.push(e.key);
+        pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length)
+        if (pressed.join('').includes(secretCode)) {
+            setInterval(party, 200);
+            bg.classList.add('mainDiv')
+            instruction.innerHTML = "U DID WELL & WON!$!<br>I'M SO \"proud\" of U"
+            music.play()
+            }
+    })
+</script>
+</html>

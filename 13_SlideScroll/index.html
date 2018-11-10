@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Slide Scroll</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Judson|Gravitas+One" rel="stylesheet">
+</head>
+<style>
+    body, html {
+        margin: 0;
+        background-color: saddlebrown;
+        color: white;
+        font-family: 'Judson', serif;
+        cursor: pointer;
+    }
+    div {
+        max-width: 550px;
+        background-color: rgb(78, 59, 44);
+        margin: auto;
+        padding: 50px;
+        border-radius: 10px;
+        box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
+        margin-top: 20px;
+        margin-bottom: 100px;
+    }
+    h1 {
+        font-family: 'Gravitas One', cursive;
+        text-align: center;
+        text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.541);
+        margin-top: 0;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    p {
+        text-align: justify;
+        font-size: 21px;
+    }
+    .scroll {
+        max-width: 55%;
+        transition: all 0.6s;
+        opacity: 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    .align-left{
+        float: left;
+        margin-right: 15px;
+        transform: translateX(-50%) scale(1.3);
+        box-shadow: 50px 50px 0px rgba(0,0,0,1)
+    }
+    .align-right{
+        float: right;
+        margin-left: 15px;
+        transform: translateX(50%) scale(1.3);
+        box-shadow: 50px 50px 0px rgba(0,0,0,1)
+    }
+    .active {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        box-shadow: 5px 5px 0px rgba(0,0,0,0)
+    }
+    .active:hover {
+        transform: scale(1.4);
+        box-shadow: 40px 40px 0px rgba(0,0,0,0.5)
+    }
+</style>
+<body>
+        <div class="main">
+            <h1>Dick Raaymakers</h1>
+            <h2>aka Kid Baltan</h2>
+            <p><img src="01.png" class="scroll align-left">Dick Raaijmakers (also Raaymakers; 1 September 1930 – 4 September 2013) was a Dutch composer, theater maker and theorist. He was known as a pioneer in the field of electronic music and tape music. In addition, he realized numerous music theater pieces, art installations, and has published many theoretical essays.</p>
+            <p>Raaymakers was born in Maastricht and studied the piano at the Royal Conservatory of The Hague. From 1954 to 1960 he worked in the field of electro-acoustic research at the NatLab of Royal Philips Electronics Ltd. in Eindhoven. Using the alias Kid Baltan (Dik NatLab reversed), he and Tom Dissevelt <img src="02.jpg" class="scroll align-right"> formed Electrosoniks and produced some of the very first electronic pop music. Jean-Jacques Perrey visited them at the time and cited them as an inspiration. While at NatLab, Raaymakers assisted Edgard Varèse with assembling his piece Poème électronique, commissioned by Philips for Expo 58. From 1960 to 1962 he held an appointment as scientific staff member at the University of Utrecht. From 1963 to 1966 he collaborated with Jan Boerman in his own studio for electronic music in the Hague. He was one of the co-founders of STEIM, the STudio for Electro-Instrumental Music. <img src="03.jpg" class="scroll align-left"> In 1966 he founded the electronic music studio at the Royal Conservatory of the Hague and lectured on electronic and contemporary music until his retirement in 1995. From 1991 he taught music theatre at the Image and Sound Interfaculty at the same conservatory. He died on the third of September, 2013. His archives are preserved at the Netherlands Music Institute.</p>
+            <p>Raaymakers' oeuvre covers a wide variety of genres and styles, varying from sound animations for films to extremely abstract pulse structures, from "action music" to infinite voice patterns, from electro-acoustic tableaux vivants to extracts of music theatre. He is considered as someone who combines disciplines such as visual art, film, literature and theatre with the world of music. Raaymakers has created numerous electronic compositions, "instructional pieces" for string ensembles, phono-kinetic objects, "graphic methods" for tractor and bicycle, "operations" for tape, film, theatre, percussion ensemble, museum and performance, artworks for offices and conservatory, and many soundscape compositions and music theatre productions, including some for the Holland Festival and for theatre company Hollandia. <img src="04.jpg" class="scroll align-right"> His theoretical essays are evidence of his profound interest in special inter-media connections. For instance, in his latest publication Cahier M (2000) Raaymakers elaborated upon the connections he saw between the 19th-century French physiologist Étienne-Jules Marey, composer Pierre Boulez, architect Iannis Xenakis and the musical views of Piet Mondrian. One of his most important books is The Method (1985), in which he describes in an exact but also poetic way how motion, cause and effect and their perception are interrelated.</p>
+            <p><img src="05.jpg" class="scroll align-left">Raaymakers received several awards for his contribution to the development of visual arts and music in the Netherlands: in 1992 from the Foundation for Lifetime Achievement Awards for Visual Arts, Design and Architecture (BKBV), in 1985 and 1994 the Matthijs Vermeulen Award and in 1995 the Ouborg Award for his lifetime achievements from the City of The Hague. In late 1995 the biennial "Festival in de Branding" was dedicated exclusively to Raaymakers' musical and visual work. The 2014-2015 season of the festival will once again be dedicated to him. In 2004 he received a lifetime achievement award from the Johan Wagenaar Foundation and an honorary doctorate from the University of Leiden. In November 2011 Raaymakers received the Witteveen+Bos Award for Art+Technology for his entire oeuvre.</p>
+        </div>
+        <audio id="play" src="music.mp3" loop></audio> <!-- TomDissevelt_KidBaltan-SongoftheSecondMoon-MilanMassiveApolloRemix.mp3 -->
+        <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+        <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+    
+</body>
+<script>
+    function debounce(func, wait = 20, immediate = true) {
+      var timeout;
+      return function() {
+        var context = this, args = arguments;
+        var later = function() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    };
+
+    
+    const sliderImages = document.querySelectorAll('.scroll')
+    let play = false
+
+    function checkSlide(e) {
+        console.count("scroll")
+        sliderImages.forEach(image => {
+            const slideInAt = (window.scrollY + window.innerHeight) - (image.height / 2)
+            const imageBottom = image.offsetTop + image.height
+            // console.log(slideInAt)
+            if (slideInAt > image.offsetTop && window.scrollY < imageBottom) {
+                image.classList.add('active')
+            } else {
+                image.classList.remove('active')
+            }
+
+        })
+    }
+    function toggleMusic() {
+        if(!play) {
+            console.log(document.getElementById('play').play())
+        }
+        else {
+            document.getElementById('play').pause()
+        }
+        play = !play
+    }
+
+    window.addEventListener('scroll', debounce(checkSlide)) // add debounce
+    window.addEventListener('click', toggleMusic)
+    checkSlide()
+
+</script>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>🇸🇬 Singapore Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<!--<style>
+    #drop-area {
+        border: 2px dashed #ccc;
+        border-radius: 20px;
+        width: 480px;
+        font-family: sans-serif;
+        margin: 100px auto;
+        padding: 20px;
+    }
+
+    #drop-area.highlight {
+        border-color: purple;
+    }
+
+    p {
+        margin-top: 0;
+    }
+
+    .my-form {
+        margin-bottom: 10px;
+    }
+
+    #gallery {
+        margin-top: 10px;
+    }
+
+    #gallery img {
+        width: 150px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px;
+        background: #ccc;
+        cursor: pointer;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .button:hover {
+        background: #ddd;
+    }
+
+    #fileElem {
+        display: none;
+    }
+</style>-->
+<link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Diplomata" rel="stylesheet">
+
+<style>
+    body, html {
+        font-family: 'Permanent Marker', cursive;
+        margin: 0;
+    }
+    h1 {
+        font-family: 'Diplomata', cursive;
+        font-size: 2em;
+        color: rgb(233, 50, 64);
+        text-align: center;
+    }
+    h4 {
+        text-align: right;
+        color: #333;
+    }
+    h2 {
+        font-family: monospace;
+        color: #555;
+        font-size: 3em;
+    }
+    #blog, #titlesg {
+        margin-left: auto;
+        margin-right: auto;
+        min-width: 500px;
+        width: 50%;
+    }
+    img {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    p {
+        display: block;
+        margin-bottom: 30px;
+        margin-top: 0px;
+        font-size: 18px;
+        color: #333;
+    }
+</style>
+
+<body>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+    <!--<p>Drop Area</p>
+    <div id="drop-area">
+        <form class="my-form">
+            <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+            <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+            <label class="button" for="fileElem">Select some files</label>
+        </form>
+    </div>
+    <p>Blog</>-->
+    <div id="titlesg">
+        <h1>🇸🇬 Singapore Blog 🇸🇬</h1>
+        <h4>by <a href="https://corentin.xyz">Corentin Derbré</a>, 2018</h4>
+    </div>
+    <div id="blog"></div>
+
+</body>
+<!--<script>
+    // https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+
+    let dropArea = document.getElementById('drop-area');
+
+    // Prevent defaults
+
+    ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)
+    })
+
+    function preventDefaults(e) {
+        e.preventDefault()
+        e.stopPropagation()
+    }
+
+    // Drag Feedback
+
+    ;['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false)
+    })
+
+        ;['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false)
+        })
+
+    function highlight(e) {
+        dropArea.classList.add('highlight')
+    }
+
+    function unhighlight(e) {
+        dropArea.classList.remove('highlight')
+    }
+
+    // Handle Drop
+
+    dropArea.addEventListener('drop', handleDrop, false)
+
+    function handleDrop(e) {
+        let dt = e.dataTransfer
+        let files = dt.files
+
+        handleFiles(files)
+    }
+
+    function handleFiles(files) {
+        ([...files]).forEach(uploadFile)
+    }
+
+    function uploadFile(file) {
+        let url = 'http://78.214.84.73/Extra_SingaporeBlog/img/'
+        let formData = new FormData()
+
+        formData.append('file', file)
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(() => { console.log("Success UL")/* Done. Inform the user */ })
+            .catch(() => { alert("Error UL"); /* Error. Inform the user */ })
+    }
+</script>-->
+
+<script>
+
+    if (!(!!window.chrome && !!window.chrome.webstore)) {
+        let warning = document.createElement('h2');
+        warning.innerHTML = "You are not using Chrome browser. You may not be able to see the 10+ pictures.";
+        document.getElementById('blog').appendChild(warning);
+    }
+
+    const filePath = 'http://78.214.84.73/Extra_SingaporeBlog/img/img-keys.md';
+    var titles = [];
+
+    function doGET(path, callback) {
+        return new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    // The request is done; did it work?
+                    if (xhr.status == 200) {
+                        // Yes, use `xhr.responseText` to resolve the promise
+                        resolve(xhr.responseText);
+                    } else {
+                        // No, reject the promise
+                        reject(xhr);
+                    }
+                }
+            };
+            xhr.open("GET", path);
+            xhr.send();
+        });
+    }
+
+    // Do the request
+    doGET(filePath)
+        .then(function (fileData) {
+            // Use the file data
+            titles = fileData.split("\n");
+            //console.log(titles);
+            drawImagesAndText();
+        })
+        .catch(function (xhr) {
+            // The call failed, look at `xhr` for details
+            console.log("ERROR 1" + xhr);
+        });
+
+    blogElem = document.getElementById('blog');
+
+    function drawImagesAndText() {
+        var index = 1;
+        var tempImg = new Image();
+        
+        tempImg.onload = function () {
+            console.log("loaded " + tempImg.src);
+            appendImage();
+        }
+        let tryLoadImage = function (index) {
+            tempImg.src = 'img/' + index + '.jpg';
+            console.log(tempImg.src);
+        }
+        let appendImage = function () {
+            let img = document.createElement('img');
+            img.src = tempImg.src;
+            if (!tempImg.src.endsWith(index + '.jpg')) {
+                tryLoadImage(index);
+            }
+            else {
+            let description = document.createElement('p');
+            description.innerHTML = index + " – " +  titles[index-1];
+            blogElem.insertBefore(description,blogElem.firstChild);
+            blogElem.insertBefore(img,blogElem.firstChild);
+            tryLoadImage(index++);
+            }
+        }
+        tryLoadImage(index);
+        
+    }
+
+    
+
+        
+</script>
+
+</html>

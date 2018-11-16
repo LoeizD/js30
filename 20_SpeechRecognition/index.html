@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Speech Recognition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    body, html {
+        margin: 0;
+        background-color: gold;
+        height: 100%;
+    }
+    .words {
+        background-color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: auto;
+        min-height: 700px;
+        width: 400px;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.288) 15px 15px;
+        margin-top: 20px;
+        border-radius: 15px;
+    }
+</style>
+<body>
+    <div class="words"><h3>Start Speaking</h3></div>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+</body>
+<script>
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    const recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+
+    let lastSpoken = "asdfasdf"
+    let p = document.createElement('p')
+    const words = document.querySelector('.words')
+    words.appendChild(p);
+
+    recognition.addEventListener('result', e => {
+        const transcript = [...e.results]
+            .map(res => res[0])
+            .map(res => res.transcript)
+            .join('')
+        p.textContent = transcript
+        if (e.results[0].isFinal) {
+            p = document.createElement('p')
+            words.appendChild(p)
+            const lastWord = transcript.split(" ").slice(-1)[0]
+            if (!lastWord.includes(lastSpoken)){
+                speak(lastWord + "?")
+                lastSpoken = lastWord
+            }
+        }
+    })
+    recognition.addEventListener('end', recognition.start)
+
+    recognition.start()
+
+    // Speech Synthesis from
+    // https://devhints.io/js-speech
+    function speak(message) {
+        var msg = new SpeechSynthesisUtterance(message)
+        var voices = window.speechSynthesis.getVoices()
+        msg.voice = voices[0]
+        window.speechSynthesis.speak(msg)
+    }
+
+
+
+</script>
+</html>

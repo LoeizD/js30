@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Compass</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    body, html {
+        margin: 0;
+    }
+    body {
+        background-image: url(bg.jpg);
+        background-size:cover;
+    }
+    p {
+        display: inline;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size: 35px;
+        text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    }
+    .speed {
+        font-weight: bold;
+        font-size: 50px;
+        color: rgb(0, 68, 9);
+    }
+    .cont {
+        margin: auto;
+        width:fit-content;
+        text-align: center;
+        margin-top: 50px;
+    }
+    .compass {
+        display: block;
+        z-index: -1;
+        margin: 50px;
+        border-radius: 50%;
+        transition: all 1.5s;
+        border: solid rgb(0, 68, 9) 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    }
+</style>
+<body>
+    <div class="cont">
+        <img src="compass.jpg" alt="compass" class="compass">
+        <p class="speed">123</p><p class="unit">km/h</p>
+    </div>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+</body>
+<script>
+    const compass = document.querySelector('.compass')
+    const speed = document.querySelector('.speed')
+    navigator.geolocation.watchPosition(data => {
+        speed.textContent = data.coords.speed;
+        compass.style.transform = `rotate(${data.coords.heading}deg)`
+    })
+</script>
+</html>

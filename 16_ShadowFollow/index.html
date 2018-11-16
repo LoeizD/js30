@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Shadow Follow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<link href="https://fonts.googleapis.com/css?family=Frijole" rel="stylesheet">
+
+<style>
+    :root {
+        --shad: 15px 15px 10px;
+    }
+    body, html {
+        height: 100vh;
+        background: linear-gradient(rgb(0, 102, 185), rgb(231, 51, 255));
+        font-family: 'Frijole', cursive;
+        overflow: hidden;
+    }
+    h1 {
+        text-transform: uppercase;
+        color: white;
+        text-align: center;
+        font-size: 6em;
+        font-weight: 400;
+        margin: 0;
+        text-shadow: var(--shad) rgba(0, 0, 0, 0.5)
+    }
+    span {
+        color: yellow;
+    }
+    .hodler {
+        padding: 15%;
+        transform: rotate(-15deg);
+        margin: auto;
+        /transform: translateX(-200px);
+    }
+</style>
+<body>
+    <div class="hodler">
+        <h1>What the</h1>
+        <h1><span>hell!!!</span></h1>
+    </div>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>    
+</body>
+<script>
+    const hell = document.querySelector('span');
+    const div = document.querySelector('.hodler');
+    function setShadowVar(e) {
+        const power = 0.2;
+        const x = (hell.getBoundingClientRect().left - e.clientX) * power;
+        const y = (hell.getBoundingClientRect().top - e.clientY) * power;
+        const len = Math.abs(Math.min(y, x)) * power;
+        document.documentElement.style.setProperty('--shad', `${x}px ${y}px ${len}px`)
+        div.style.transform = `translateX(${-x*power}px) translateY(${-y*power}px) rotate(-15deg)`;
+    }
+    document.addEventListener('mousemove', setShadowVar)
+</script>
+</html>

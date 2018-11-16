@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Smooth Links</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    body, html {
+        margin: 0;
+        min-height: 100vh;
+    }
+    body {
+        font-family: Helvetica, sans-serif;
+        font-size: 1.2em;
+        background: 
+            linear-gradient(45deg, rgb(255, 187, 0) 0%, rgba(0, 0, 0, 0) 80%),
+            linear-gradient(225deg, rgb(153, 0, 255) 10%, rgba(0, 0, 0, 0) 80%),
+            linear-gradient(105deg, red 0%, rgba(0, 0, 0, 0) 80%);
+    }
+    span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all 0.2s;
+        display: block;
+        background-color: white;
+        border-radius: 20px;
+        height: 20px;
+        width: 20px;
+        z-index: -1;
+    }
+    .wrapper {
+        max-width: 400px;
+        margin: auto;
+        text-align: justify;
+        line-height: 2;
+    }
+    ul {
+        display: flex;
+        width: 50%;
+        margin: auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        justify-content: center;
+        align-content: center;
+    }
+    li {
+        list-style: none;
+        display: inline-block;
+        flex:1;
+    }
+    a {
+        text-decoration: none;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        color: black;
+        padding: 5px;
+    }
+    a:hover {
+        background-color: rgba(0, 0, 0, 0);
+    }
+</style>
+
+<body>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+
+    <nav>
+        <ul class="menu">
+            <li><a href="">Home</a></li>
+            <li><a href="">Order Status</a></li>
+            <li><a href="">Tweets</a></li>
+            <li><a href="">Read Our History</a></li>
+            <li><a href="">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="wrapper">
+        <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit. Est <a href="">explicabo</a> unde
+            natus necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
+        <p>Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque praesentium laborum pariatur earum <a href="">quaerat</a>
+            cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
+        <p>Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime <a href="">corrupti</a> possimus <a
+                href="">veritatis</a> ipsum fugit recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.</p>
+        <p>Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni odit <a href="">totam</a> ut
+            consequatur eveniet sunt quam provident sapiente dicta neque quod.</p>
+        <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime
+            <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!</p>
+    </div>
+</body>
+<script>
+    const triggers = document.querySelectorAll('a')
+    const highlight = document.createElement('span')
+    document.body.append(highlight)
+
+    function highlightLink() {
+        const linkCoords = this.getBoundingClientRect()
+        highlight.style.width = `${linkCoords.width}px`
+        highlight.style.height = `${linkCoords.height}px`
+        highlight.style.transform = `translate(${linkCoords.left + window.scrollX}px, ${linkCoords.top + window.scrollY}px)`
+    }
+
+    triggers.forEach(a => a.addEventListener('mouseenter', highlightLink))
+
+</script>
+
+</html>

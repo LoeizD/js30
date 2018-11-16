@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Local Storage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<link href="https://fonts.googleapis.com/css?family=Adamina" rel="stylesheet">
+
+<style>
+    body, html {
+        background-color: rgb(75, 0, 6);
+        color: white;
+        font-family: 'Adamina', serif;
+    }
+    h1 {
+        font-size: 60px;
+        text-align: center;
+    }
+    h2 {
+        text-align: center;
+        font-size: 35px;
+        text-shadow: 2px 2px 0px rgb(75, 0, 6);
+    }
+    span {
+        color: rgb(150, 230, 65);
+        font-style: italic;
+    }
+    ul {
+        padding: 0;
+    }
+    li {
+        color: rgb(75, 0, 6);
+        font-size: 20px;
+        text-transform: capitalize;
+        background: rgba(255, 255, 255, 0.95);
+        list-style-type:none;
+        margin: 5px;
+        padding: 4px;
+    }
+    label {
+        margin-left: 5px;
+        width: 100%;
+        display: inline-block;
+        padding: 0;
+    }
+    label:hover {
+        cursor: pointer;
+    }
+    .plant-list input {
+        display: none;
+    }
+    .plant-list input + label:before {
+        content: '🌱';
+        margin-right: 10px;
+    }
+    .plant-list input:checked + label:before {
+        content: '🌳';
+    }
+    .inventory {
+        background-image: linear-gradient( rgba(150, 230, 65,.3), rgba(150, 230, 65,.3) ), url("garden.jpg");
+        background-size: contain;
+        margin: auto;
+        width: 250px;
+        padding: 30px;
+    }
+    input {
+        font-family: 'Adamina', serif;
+        
+    }
+    input[type=text] {
+        padding: 8px;
+        font-size: 15px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        width: 50px;
+        flex: 2;
+        border: 0;
+    }
+    input[type=submit] {
+        background-color: rgb(150, 230, 65);
+        padding: 8px;
+        font-size: 15px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border: 0;
+    }
+    input:hover[type=submit] {
+        background-color: rgb(114, 175, 49);
+        cursor: pointer;
+    }
+    form {
+        display: flex;
+        margin: 5px;
+    }
+</style>
+<body>
+    <h1>Track what you <span>plant</span></h1>
+    <div class="inventory">
+        <h2>Your Garden</h2>
+        <ul class="plant-list">
+            <li>loading plants...</li>
+        </ul>
+        <form class="add-items">
+            <input type="text" placeholder="plant name" required name="item">
+            <input type="submit" value="+ plant">
+        </form>
+    </div>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+        <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+</body>
+<script>
+    const addItems = document.querySelector('.add-items')
+    const plantList = document.querySelector('.plant-list')
+    const items = JSON.parse(localStorage.getItem('items')) || []
+
+    function populateList(items = [], plantList) {
+        plantList.innerHTML = items.map((e, i) => `
+            <li>
+                <input type="checkbox" data-index=${i} id="item${i}" ${e.done?' checked':''}/>
+                <label for="item${i}">${e.text}</label>
+            </li>
+        ` ).join('')
+    }
+
+    function addPlant(e) {
+        e.preventDefault()
+        const text = (this.querySelector('[name=item]')).value
+        const item = {
+            text ,
+            done: false
+        }
+        items.push(item)
+        populateList(items, plantList)
+        localStorage.setItem('items', JSON.stringify(items));
+        this.reset()
+    }
+
+    function toggleDone(e) {
+        if (!e.target.matches('input')) return
+        const el = e.target.dataset.index
+        items[el].done = !items[el].done
+        localStorage.setItem('items', JSON.stringify(items));
+        populateList(items, plantList)
+    }
+    plantList.addEventListener('click', toggleDone)
+    addItems.addEventListener('submit', addPlant)
+    populateList(items, plantList)
+</script>
+</html>

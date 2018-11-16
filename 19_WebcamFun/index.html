@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Webcam Fun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<style>
+    body, html {
+        margin: 0;
+        background: url(water.mp4);
+    }
+    #myVideo {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        z-index: -1;
+    }
+    .menu {
+        background-color: gold;
+        padding: 10px;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+    }
+    .container {
+        margin: 60px;
+    }
+    .strip {
+        background-color: gold;
+        min-height: 100px;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+    }
+    .strip img{
+        height: 90px;
+        margin: 5px;
+    }
+    .photo {
+        height: 60vh;
+        margin: auto;
+        margin: 0;
+        width: 100%;
+    }
+    .player {
+        position: absolute;
+        top: 60px;
+        right: 60px;
+        width: 250px;
+        border-top-right-radius: 25px;
+    }
+</style>
+<body>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+
+    <video autoplay muted loop id="myVideo">
+        <source src="water.mp4" type="video/mp4">
+    </video>
+
+    <div class="container">
+        <div class="menu">
+            <button onClick="takePhoto()">Take Photo</button>
+            <br>
+            <label for="bmin">Green min:</label>
+            <input type="range" name="gmin" min="0" max="255" value="64">
+            <label for="bmax">Green max:</label>
+            <input type="range" name="gmax" min="0" max="255" value="192">
+        </div>
+        <canvas class="photo"></canvas>
+        <video class="player"></video>
+        <div class="strip"></div>
+    </div>
+    <audio src="photo.wav" class="snap"></audio>
+</body>
+<script src="main.js"></script>
+<script>
+
+</script>
+</html>

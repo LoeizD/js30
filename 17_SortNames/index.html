@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Sort Names</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<link href="https://fonts.googleapis.com/css?family=Poller+One" rel="stylesheet">
+
+<style>
+    html, body {
+        margin: 0;
+        background: url(live.jpg);
+        background-size:cover;
+        font-family: 'Poller One', cursive;
+        height: 100vh;
+        font-size: 20px;
+    }
+    .holder {
+        background-color: rgba(255, 0, 0, 0.3);
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        height: 100%;
+    }
+    .hero {
+        background-color: white;
+        height:fit-content;
+        align-self: center;
+        padding: 50px;
+        margin: 0;
+    }
+    li {
+        transition: all 1.5s;
+        padding: 5px;
+        border-bottom: 1px solid gray;
+    }
+    li:hover {
+        color:rgb(255, 0, 0);
+        transition: all 0.1s;
+    }
+    p {
+        transform: scaleY(1.5);
+    }
+</style>
+<body>
+    <div class="holder">
+        <ul class="hero">
+            <p style="color:firebrick">Alphabetical Sorting</p>
+        </ul>
+    </div>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+    
+</body>
+<script>
+    const hero = document.querySelector(".hero")
+    const bands = ['The Who', 'ZZ Top', 'Spiritual Beggars', 'A Guy Called Gerald', 'The Carpenters', 'Joni Mitchell', 'Carcass', 'Assassin', 'Tom Dissvelt', 'The Cure', 'The Fall']
+    function sortName(a, b) {
+        console.log(a.replace(/^(The|A) /, "") + " --- " + a.replace(/^(The|A) /, "").charCodeAt(0))
+        return (a.replace(/^(The|A) /, "").charCodeAt(0) < b.replace(/^(The|A) /, "").charCodeAt(0))? -1 : 1;
+    }
+    bands.sort((a, b) => sortName(a, b))
+    bands.forEach(e => {
+        const li = document.createElement('li')
+        li.innerHTML = e;
+        hero.appendChild(li)
+    })
+</script>
+</html>

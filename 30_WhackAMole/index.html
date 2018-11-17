@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Whack-A-Mole</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+
+<style>
+    body, html {
+        margin: 0;
+    }
+    body {
+        font-family: 'Amatic SC', cursive;
+        background-color: gold;
+        display: flex;
+        align-items: center;
+        flex-direction: column; 
+        min-height: 100vh;
+    }
+                button {
+                    background-color: orangered;
+                    border-radius: 5px;
+                    padding: 20px;
+                    margin: 100px;
+                    font-size: 50px;
+                    font-family: 'Amatic SC', cursive;
+                    flex:1;
+                    max-height: fit-content;
+                }
+    h1 {
+        text-align: center;
+        font-size: 80px;
+        line-height: 1;
+        margin-bottom: 0;
+        flex: 1;
+    }
+    .score {
+        background-color: goldenrod;
+        border-radius: 10px;
+        padding: 5px;
+    }
+    .game {
+        width: 600px;
+        height: 400px;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        background-color: goldenrod;
+        border-radius: 10px;
+        padding: 30px;
+        flex: 1;
+    }
+    .hole {
+  flex: 1 0 33.33%;
+  overflow: hidden;
+  position: relative;
+}
+
+.hole:after {
+  display: block;
+  background: url(dirt.svg) bottom center no-repeat;
+  background-size: contain;
+  content: '';
+  width: 100%;
+  height:70px;
+  position: absolute;
+  z-index: 2;
+  bottom: -30px;
+}
+
+.mole {
+  background: url('mole.svg') bottom center no-repeat;
+  background-size: 60%;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  transition:all 0.4s;
+}
+
+.hole.up .mole {
+  top: 0;
+}
+</style>
+<body>
+    <h1>Whack-A-Mole! <span class="score">0</span></h1>
+
+    
+    <div class="game">
+        <div class="hole hole1">
+            <div class="mole"></div>
+        </div>
+        <div class="hole hole2">
+            <div class="mole"></div>
+        </div>
+        <div class="hole hole3">
+            <div class="mole"></div>
+        </div>
+        <div class="hole hole4">
+            <div class="mole"></div>
+        </div>
+        <div class="hole hole5">
+            <div class="mole"></div>
+        </div>
+        <div class="hole hole6">
+            <div class="mole"></div>
+        </div>
+    </div>
+    <button onclick="startGame()">Start</button>
+    
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+</body>
+<script>
+    const holes = document.querySelectorAll('.hole')
+    const scoreBoard = document.querySelector('.score')
+    const moles = document.querySelectorAll('.mole')
+    let lastHole
+    let timeUp = false
+    let score = 0
+
+
+    function randomTime(min, max) {
+        return Math.round(Math.random() * (max-min) + min)
+    }
+
+    function randomHole(holes) {
+        const hole = holes[Math.floor(Math.random()*holes.length)]
+        if (hole == lastHole) {
+            return randomHole(holes)
+        }
+        lastHole = hole
+        return hole
+    }
+
+    function peep() {
+        const time = randomTime(200, 1000)
+        const hole = randomHole(holes)
+        hole.classList.add('up')
+        setTimeout(()=> {
+            hole.classList.remove('up')
+            if (!timeUp) peep()
+            
+        }, time)
+    }
+
+    function startGame() {
+        scoreBoard.textContent = 0
+        timeUp = false
+        score = 0
+        peep()
+        setTimeout(()=> timeUp = true, 10000)
+    }
+
+    function bonk(e) {
+        if (!e.isTrusted) return
+        score++
+        scoreBoard.textContent = score
+        this.classList.remove('up')
+    }
+
+    moles.forEach(m => m.addEventListener('click', bonk))
+
+</script>
+</html>

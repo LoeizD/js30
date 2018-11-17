@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Follow Dropdown</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    body, html {
+        margin: 0;
+    }
+    body {
+        height: 100vh;
+        background-image: linear-gradient(45deg, red, orange);
+        font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    }
+    ul {
+        display: flex;
+        justify-content: center;
+        padding: 20%;
+    }
+    .cool > li {
+        flex: 1;
+        text-align: center;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+    }
+    .dropdown {
+        opacity: 0;
+        position: absolute;
+        transition: all .5s;
+        display: none;
+        padding: 10px;
+        min-width: 300px;
+        max-width: 400px;
+        transform: translateY(40px);
+    }
+    .dropdownBackground {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        background-color: white;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s;
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+        border-radius: 4px;
+    }
+
+    .dropdownBackground.open {
+        opacity: 1;
+    }
+
+    .trigger-enter .dropdown {
+        display: block;
+    }
+    .trigger-enter-active .dropdown {
+        opacity: 1;
+    }
+    .arrow {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: white;
+    transform: translateY(-50%) rotate(45deg);
+  }
+</style>
+<body>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+    
+    <nav class="top">
+        <div class="dropdownBackground">
+            <span class="arrow"></span>
+        </div>
+        <ul class="cool">
+            <li>
+                <a href="">About Me</a>
+                <div class="dropdown">
+                    <p>Some stuff 1. Isn't it nice to have a computer that can talk to you, robot face. This is what the voiceinator 6000 said yesterday.</p>
+                    <img src="dandelion.jpg" alt="dandelion" height="180px" width="300px">
+                </div>
+            </li>
+            <li>
+                <a href="">Courses</a>
+                <div class="dropdown">
+                    <p>Some stuff 1</p>
+                </div>
+            </li>
+            <li>
+                <a href="">Other Links</a>
+                <div class="dropdown">
+                    <p>Some stuff 1</p>
+                    <p>This is longer</p>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</body>
+<script>
+    const triggers = document.querySelectorAll('.cool > li')
+    const bg = document.querySelector('.dropdownBackground')
+    const nav = document.querySelector('.top')
+
+    function handleEnter() {
+        // console.log(this.classList)
+        this.classList.add('trigger-enter')
+        setTimeout(() => {
+            if (this.classList.contains('trigger-enter')) {
+                this.classList.add('trigger-enter-active')
+            }
+        }, 150)
+        bg.classList.add('open')
+        
+        const dropdown = this.querySelector('.dropdown')
+        const dropdownCoords = dropdown.getBoundingClientRect()
+        const navCoords = nav.getBoundingClientRect()
+        const coords = {
+            height: dropdownCoords.height,
+            width: dropdownCoords.width,
+            top: dropdownCoords.top - navCoords.top,
+            left: dropdownCoords.left - navCoords.left,
+        }
+        bg.style.setProperty('height', `${coords.height}px`)
+        bg.style.setProperty('width', `${coords.width}px`)
+        bg.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px`)
+        
+    }
+    function handleLeave() {
+        // console.log(this)
+        this.classList.remove('trigger-enter', 'trigger-enter-active')
+        bg.classList.remove('open')
+    }
+
+    triggers.forEach(e => e.addEventListener('mouseenter', handleEnter))
+    triggers.forEach(e => e.addEventListener('mouseleave', handleLeave))
+</script>
+</html>

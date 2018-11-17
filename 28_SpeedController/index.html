@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Video Speed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    body, html {
+        margin: 0;
+    }
+    body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    video {
+        height: 400px;
+        border-radius: 38px;
+        display: inline;
+    }
+    .holder {
+        display: inline-block;
+        height: 400px;
+        width: 76px;
+        background: linear-gradient( rgb(102, 190, 20) 17.5%, rgb(245, 115, 169) 17.51%);
+        background-color: red;
+        border-radius: 38px;
+    }
+    .counter {
+        text-align: center;
+        color: black;
+        font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+        user-select: none;
+        font-size: 30px;
+        pointer-events: none;
+    }
+</style>
+<body>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+    <video src="video.mp4" loop autoplay></video>
+    <div class="holder">
+        <p class="counter">x1</p>
+    </div>
+</body>
+<script>
+    const video = document.querySelector('video')
+    const holder = document.querySelector('.holder')
+    const counter = document.querySelector('.counter')
+    let canLah = false
+    video.play()
+
+    function updateRate(e) {
+        if (!canLah) return
+        // console.log(e)
+        video.playbackRate = e.offsetY / 120 + 0.5
+        counter.textContent = "x" + Math.floor(video.playbackRate*10)/10
+        holder.style.setProperty('background', `linear-gradient( rgb(102, 190, 20) ${e.offsetY/4}%, rgb(245, 115, 169) ${e.offsetY/4+0.01}%)`)
+    }
+
+    //holder.addEventListener('mouseover', updateRate)
+    holder.addEventListener('mousedown', (e)=> {
+        canLah = true
+        updateRate(e)
+    })
+    holder.addEventListener('mouseup', ()=> canLah = false)
+    // holder.addEventListener('mouseleave', ()=> canLah = false)
+    holder.addEventListener('mousemove', updateRate)
+</script>
+</html>

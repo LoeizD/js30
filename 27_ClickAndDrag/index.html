@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Click and Drag</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    body, html {
+        margin: 0;
+    }
+    body {
+        background-image: url(bg.jpg);
+        overflow: hidden;
+    }
+    .box {
+        margin: 50px;
+        height: calc(100vh - 100px);
+        background-color: rgba(255, 255, 255, 0.5);
+        border: white solid 1px;
+        display: flex;
+        align-items: center;
+    }
+    .scroller {
+        min-width: 1000vw;
+    }
+    .scroller img{
+        height: 70vh;
+        user-select: none;
+        pointer-events: none;
+    }
+</style>
+<body>
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+    <div class="box">
+        <div class="scroller">
+            <img src="1.jpg" alt="">
+            <img src="2.jpg" alt="">
+            <img src="3.jpg" alt="">
+            <img src="4.jpg" alt="">
+            <img src="5.jpg" alt="">
+            <img src="6.jpg" alt="">
+            <img src="7.jpg" alt="">
+            <img src="8.jpg" alt="">
+            <img src="9.jpg" class="last" alt="">
+        </div>
+    </div>
+</body>
+<script>
+    const scroller = document.querySelector('.scroller')
+    let canScroll = false
+    let totalOffset = 0
+    const maxOffset = document.querySelector('.last').getBoundingClientRect().x //scroller.getBoundingClientRect().width
+    console.log(maxOffset)
+    
+    function clamp(num, min, max) {
+        return Math.min(Math.max(num, min), max);
+        // return num <= min ? min : num >= max ? max : num;
+    };
+
+    function scrollHandle(e) {
+        if (canScroll) {
+            // console.log(totalOffset)
+            // totalOffset += e.movementX;
+            totalOffset = clamp(e.movementX *2 + totalOffset, -maxOffset, 0)
+            // console.log(totalOffset)
+
+            scroller.style.setProperty('transform', `translateX(${totalOffset}px)`)
+        }
+    }
+
+    document.addEventListener('mousemove', scrollHandle)
+    document.addEventListener('mousedown', ()=>{
+        canScroll = true
+        console.log(canScroll)
+    })
+    document.addEventListener('mouseup', ()=>{
+        canScroll = false
+        console.log(canScroll)
+    })
+    document.addEventListener('mouseleave', ()=>{canScroll = false})
+</script>
+</html>

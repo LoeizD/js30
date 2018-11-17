@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Bubble Event</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    body, html {
+        margin: 0;
+        /height: 100vh;
+    }
+    div {
+        height: 100%;
+        padding: 100px;
+    }
+    .one {
+        background-color: thistle;
+    }
+    .two {
+        background-color: mistyrose;
+    }
+    .three {
+        background-color: coral;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<body>
+    <div class="one">
+        <div class="two">
+            <div class="three">
+                <button>You can only click me once!</button>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" type="text/css" href="http://78.214.84.73/back/back.css">
+    <div class="menu-back"><a href="../index.html">️<img src="http://78.214.84.73/back/arrow.png" width="40px" height="50px"></a></div>
+</body>
+<script>
+    const divs = document.querySelectorAll('div')
+    const button = document.querySelector('button')
+
+    function logText(e) {
+        console.log(this.classList.value)
+        e.stopPropagation()
+    }
+
+    divs.forEach(div => div.addEventListener('click', logText, {
+        capture: false,
+        once: true
+    }))
+    button.addEventListener('click', () => {
+        button.innerHTML = "YOU DID IT"
+        button.setAttribute("disabled", "true")
+    }, {once: true} )
+
+</script>
+</html>
